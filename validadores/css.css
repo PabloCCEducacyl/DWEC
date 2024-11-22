@@ -14,6 +14,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: 60%;
+    max-width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -23,6 +24,10 @@ body {
     color: #444;
     margin-bottom: 8px;
     display: block;
+}
+
+input:focus {
+    outline: none;
 }
 
 #formulario-empleado input[type="text"] {
@@ -67,6 +72,7 @@ body {
     text-align: left;
     border: 1px solid #ddd;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 #tabla-empleados th {
@@ -83,7 +89,11 @@ body {
     background-color: #f7f7f7;
 }
 
-/* Responsive Styling for Smaller Screens */
+.editar {
+    max-height: 32px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
     #formulario-empleado {
         width: 90%;

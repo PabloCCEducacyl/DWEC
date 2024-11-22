@@ -18,56 +18,86 @@ class Empleado {
     }
     
     getNombre(){
-        return this.#nombre
-    }
-
+        return this.#nombre}
     getApellido(){
-        return this.#apellido
-    }
-
+        return this.#apellido}
     getNacimiento(){
-        return this.#nacimiento
-    }
-
+        return this.#nacimiento}
     getSueldo(){
-        return this.#sueldo
-    }
-
+        return this.#sueldo}
     getEmail(){
-        return this.#email
-    }
-
+        return this.#email}
     getDni(){
-        return this.#dni
-    }
-    toTableRow() {
+        return this.#dni}
+    setNombre(valor){
+        this.#nombre = valor}
+    setApellido(valor){
+        this.#apellido = valor}
+    setNacimiento(valor){
+        this.#nacimiento = valor}
+    setSueldo(valor){
+        this.#nombre = valor}
+    setEmail(valor){
+        this.#email = valor}
+    setDni(valor){
+        this.#dni = valor}
+    
+    
+
+
+    toTableRow(cuentaEmpleados, empleadoAEditar) {
         let empleadofila = document.createElement("tr");
         let empleadoCasillaNacimiento = document.createElement('td'),
         empleadoCasillaNombre = document.createElement('td'),
         empleadoCasillaApellidos = document.createElement('td'),
         empleadoCasillaSueldo = document.createElement('td'),
         empleadoCasillaEmail = document.createElement('td'),
-        empleadoCasillaDni = document.createElement('td')
-        
-        empleadoCasillaNombre.innerHTML = this.#nombre
-        empleadoCasillaApellidos.innerHTML = this.#apellido
-        empleadoCasillaSueldo.innerHTML = this.#sueldo
-        empleadoCasillaNacimiento.innerHTML = this.#nacimiento
-        empleadoCasillaEmail.innerHTML = this.#email
-        empleadoCasillaDni.innerHTML = this.#dni
+        empleadoCasillaDni = document.createElement('td'),
+        empleadoCasillaEditar = document.createElement('td')
         empleadofila.appendChild(empleadoCasillaNombre)
         empleadofila.appendChild(empleadoCasillaApellidos)
         empleadofila.appendChild(empleadoCasillaNacimiento)
         empleadofila.appendChild(empleadoCasillaSueldo)
         empleadofila.appendChild(empleadoCasillaEmail)
         empleadofila.appendChild(empleadoCasillaDni)
+        empleadofila.appendChild(empleadoCasillaEditar)
+        if(cuentaEmpleados !== empleadoAEditar){
+            empleadoCasillaNombre.innerHTML = this.#nombre
+        empleadoCasillaApellidos.innerHTML = this.#apellido
+        empleadoCasillaSueldo.innerHTML = this.#sueldo
+        empleadoCasillaNacimiento.innerHTML = this.#nacimiento
+        empleadoCasillaEmail.innerHTML = this.#email
+        empleadoCasillaDni.innerHTML = this.#dni
+        empleadoCasillaEditar.innerHTML = "<img class='editar' id="+cuentaEmpleados+" src='editar.webp'>"
+        } else {
+            let empleadoCasillaFormNacimiento = document.createElement('input'),
+            empleadoCasillaFormNombre = document.createElement('input'),
+            empleadoCasillaFormApellidos = document.createElement('input'),
+            empleadoCasillaFormSueldo = document.createElement('input'),
+            empleadoCasillaFormEmail = document.createElement('input'),
+            empleadoCasillaFormDni = document.createElement('input'),
+            empleadoCasillaFormEditar = document.createElement('input')
+            
+            empleadoCasillaFormNombre.innerHTML = this.#nombre
+            empleadoCasillaFormApellidos.innerHTML = this.#apellido
+            empleadoCasillaFormSueldo.innerHTML = this.#sueldo
+            empleadoCasillaFormNacimiento.innerHTML = this.#nacimiento
+            empleadoCasillaFormEmail.innerHTML = this.#email
+            empleadoCasillaFormDni.innerHTML = this.#dni
+            empleadoCasillaFormEditar.innerHTML = "<img class='editar' id="+cuentaEmpleados+" src='ok.webp'>"
+        }
         return empleadofila
-        
+    };
+    updateEmpleado(nombre, apellidos, suedo, fecha, email, dni) {
+        console.log("a");
     }
+
     
     
 }
-var empleados = new Array()
+let empleados = [
+    new Empleado("Carmen", "Española Española", "01/01/1980", "9$", "carmenespecimen@espana.es", "99999999R")
+    ]
 
 //empleados.sort((a,b) => a[0] -  b[0]);
 
@@ -76,15 +106,17 @@ let ordNombre = 1
 let ordApellidos = 1
 let ordNacimiento = 1
 let ordSueldo = 1
-function renderTabla(){
-    tabla.innerHTML = "<tr><th id='columna-nombre'>Nombre</th><th id='columna-apellidos'>Apellidos</th><th id='columna-nacimiento'>Nacimiento</th><th id='columna-sueldo'>Sueldo</th><th id='columna-email'>Email</th><th id='columna-dni'>DNI</th></tr>"
+function renderTabla(empleadoAEditar){
+    tabla.innerHTML = "<tr><th id='columna-nombre'>Nombre</th><th id='columna-apellidos'>Apellidos</th><th id='columna-nacimiento'>Nacimiento</th><th id='columna-sueldo'>Sueldo</th><th id='columna-email'>Email</th><th id='columna-dni'>DNI</th><th>Editar</th></tr>"
 
     document.getElementById('columna-nombre').setAttribute('ord', ordNombre)
     document.getElementById('columna-apellidos').setAttribute('ord', ordApellidos)
     document.getElementById('columna-nacimiento').setAttribute('ord', ordNacimiento)
     document.getElementById('columna-sueldo').setAttribute('ord', ordSueldo)
+    let cuentaEmpleados = 0
     empleados.forEach((empleado) => {
-        let empleadotr = empleado.toTableRow()
+        let empleadotr = empleado.toTableRow(cuentaEmpleados, empleadoAEditar)
+        cuentaEmpleados++
         //console.log(empleadotr)
         tabla.append(empleadotr)
     })
@@ -148,6 +180,16 @@ function renderTabla(){
         }
         renderTabla()
     })
+
+    let botonesEditar = document.querySelectorAll('.editar')
+    botonesEditar.forEach(boton => {
+        boton.addEventListener("click", (event) => {
+            renderTabla(event.target.id)
+        })
+    });
+
+    //document.querySelectorAll('editar').addEventListener("click", (event) => {})
+    //en un mundo perfecto esto se podria
 }
 
 let formulario = document.getElementById('formulario-empleado')

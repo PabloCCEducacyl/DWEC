@@ -3,27 +3,30 @@
 document.getElementById('dni').addEventListener("blur", (e) => {
     let dni = e.target.value
     if(!validarDNI(dni)){
-        document.getElementById('dni').setAttribute("style", "border: red solid 10px")
+        document.getElementById('dni').setAttribute("style", "border: red solid 1px")
     } else {
-        document.getElementById('dni').setAttribute("style", "border: green solid 10px;")
+        document.getElementById('dni').setAttribute("style", "border: green solid 1px;")
     }
 })
 document.getElementById('email').addEventListener("blur", (e) => {
     let email = e.target.value
     if(!validarEmail(email)){
-        document.getElementById('email').setAttribute("style", "border: red solid 10px")
+        document.getElementById('email').setAttribute("style", "border: red solid 1px")
     } else {
-        document.getElementById('email').setAttribute("style", "border: green solid 10px;")
+        document.getElementById('email').setAttribute("style", "border: green solid 1px;")
     }
 })
-document.getElementById('fecha').addEventListener("blur", (e) => {
+document.getElementById('fecha').addEventListener("blur", procesarfecha);
+document.getElementById('fecha').addEventListener("focus", procesarfecha);
+
+function procesarfecha(e) {
     let fecha = e.target.value
     if(!validarFecha(fecha)){
-        document.getElementById('fecha').setAttribute("style", "border: red solid 10px")
+        document.getElementById('fecha').setAttribute("style", "border: red solid 1px")
     } else {
-        document.getElementById('fecha').setAttribute("style", "border: green solid 10px;")
+        document.getElementById('fecha').setAttribute("style", "border: green solid 1px;")
     }
-})
+}
 
 function validarDNI(dni){
     let DNIregex = new RegExp(`[0-9]{8}[A-Z]`)
