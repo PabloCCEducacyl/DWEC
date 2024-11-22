@@ -5,16 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script defer src="validadores.js"></script>
+    <script defer src="cosatabla.js"></script>
+    <link rel="stylesheet" href="css.css">
 </head>
 <body>
-    <label for="email">Email:
-        <input type="text" name="email" id="email">
-    </label>
-    <label for="dni">DNI:
-        <input type="text" name="dni" id="dni">
-    </label>
-    <label for="fecha">Fecha (DD/MM/YYYY)
-        <input type="text" name="fecha" id="fecha">
-    </label>
+    <form id="formulario-empleado" onsubmit="nuevoEmpleado()">
+        <label for="email">Nombre:
+            <input type="text" name="nombre" id="nombre">
+        </label>
+        <label for="apellidos">Apellidos:
+            <input type="text" name="apellidos" id="apellidos">
+        </label>
+        <label for="sueldo">Sueldo:
+            <input type="text" name="sueldo" id="sueldo">
+        </label>
+        <label for="email">Email:
+            <input type="text" name="email" id="email">
+        </label>
+        <label for="dni">DNI:
+            <input type="text" name="dni" id="dni">
+        </label>
+        <label for="fecha">Fecha (DD/MM/YYYY)
+            <input type="text" name="fecha" id="fecha">
+        </label>
+        <input type="submit" value="Javierputero">
+    </form>
+
+
+    <table rules='all' style="border: 1px black solid;" id="tabla-empleados">
+
+    </table>
 </body>
 </html>
