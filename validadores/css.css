@@ -104,7 +104,10 @@ input:focus {
     padding: 0;
 }
 .editar {
-    justify-self: center;
+    max-height: 32px;
+    cursor: pointer;
+}
+.borrar {
     max-height: 32px;
     cursor: pointer;
 }
