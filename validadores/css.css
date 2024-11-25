@@ -59,7 +59,7 @@ input:focus {
 
 /* Table Styling */
 #tabla-empleados {
-    width: 80%;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
     border-collapse: collapse;
@@ -89,7 +89,22 @@ input:focus {
     background-color: #f7f7f7;
 }
 
+#tabla-empleados input.input-editar {
+    padding: 0;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.editartd{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
 .editar {
+    justify-self: center;
     max-height: 32px;
     cursor: pointer;
 }

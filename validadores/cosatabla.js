@@ -24,7 +24,7 @@ class Empleado {
     getNacimiento(){
         return this.#nacimiento}
     getSueldo(){
-        return this.#sueldo}
+        return this.#sueldo;}
     getEmail(){
         return this.#email}
     getDni(){
@@ -36,7 +36,7 @@ class Empleado {
     setNacimiento(valor){
         this.#nacimiento = valor}
     setSueldo(valor){
-        this.#nombre = valor}
+        this.#sueldo = valor}
     setEmail(valor){
         this.#email = valor}
     setDni(valor){
@@ -45,7 +45,7 @@ class Empleado {
     
 
 
-    toTableRow(cuentaEmpleados, empleadoAEditar) {
+    toTableRow() {
         let empleadofila = document.createElement("tr");
         let empleadoCasillaNacimiento = document.createElement('td'),
         empleadoCasillaNombre = document.createElement('td'),
@@ -54,6 +54,9 @@ class Empleado {
         empleadoCasillaEmail = document.createElement('td'),
         empleadoCasillaDni = document.createElement('td'),
         empleadoCasillaEditar = document.createElement('td')
+        empleadoCasillaEditar.className = "editartd"
+        
+        
         empleadofila.appendChild(empleadoCasillaNombre)
         empleadofila.appendChild(empleadoCasillaApellidos)
         empleadofila.appendChild(empleadoCasillaNacimiento)
@@ -61,52 +64,105 @@ class Empleado {
         empleadofila.appendChild(empleadoCasillaEmail)
         empleadofila.appendChild(empleadoCasillaDni)
         empleadofila.appendChild(empleadoCasillaEditar)
-        if(cuentaEmpleados !== empleadoAEditar){
-            empleadoCasillaNombre.innerHTML = this.#nombre
-        empleadoCasillaApellidos.innerHTML = this.#apellido
-        empleadoCasillaSueldo.innerHTML = this.#sueldo
-        empleadoCasillaNacimiento.innerHTML = this.#nacimiento
-        empleadoCasillaEmail.innerHTML = this.#email
-        empleadoCasillaDni.innerHTML = this.#dni
-        empleadoCasillaEditar.innerHTML = "<img class='editar' id="+cuentaEmpleados+" src='editar.webp'>"
-        } else {
-            let empleadoCasillaFormNacimiento = document.createElement('input'),
-            empleadoCasillaFormNombre = document.createElement('input'),
-            empleadoCasillaFormApellidos = document.createElement('input'),
-            empleadoCasillaFormSueldo = document.createElement('input'),
-            empleadoCasillaFormEmail = document.createElement('input'),
-            empleadoCasillaFormDni = document.createElement('input'),
-            empleadoCasillaFormEditar = document.createElement('input')
-            
-            empleadoCasillaFormNombre.innerHTML = this.#nombre
-            empleadoCasillaFormApellidos.innerHTML = this.#apellido
-            empleadoCasillaFormSueldo.innerHTML = this.#sueldo
-            empleadoCasillaFormNacimiento.innerHTML = this.#nacimiento
-            empleadoCasillaFormEmail.innerHTML = this.#email
-            empleadoCasillaFormDni.innerHTML = this.#dni
-            empleadoCasillaFormEditar.innerHTML = "<img class='editar' id="+cuentaEmpleados+" src='ok.webp'>"
-        }
+        
         return empleadofila
     };
+    toInfoRow(cuentaEmpleados) {
+        let row = this.toTableRow()
+
+        row.childNodes[0].innerHTML = this.#nombre
+        row.childNodes[1].innerHTML = this.#apellido
+        row.childNodes[2].innerHTML = this.#nacimiento
+        row.childNodes[3].innerHTML = this.#sueldo
+        row.childNodes[4].innerHTML = this.#email
+        row.childNodes[5].innerHTML = this.#dni
+        row.childNodes[6].innerHTML = "<img class='editar' id="+cuentaEmpleados+" src='editar.webp'>"
+
+        return row
+    }
+
+    toFormRow() {
+        let row = this.toTableRow()
+        
+        let empleadoCasillaFormNombre = document.createElement('input')
+        empleadoCasillaFormNombre.type = "text"
+        empleadoCasillaFormNombre.value = this.#nombre
+        empleadoCasillaFormNombre.className = "input-editar"
+        
+        let empleadoCasillaFormApellidos = document.createElement('input')
+        empleadoCasillaFormApellidos.type = "text"
+        empleadoCasillaFormApellidos.value = this.#apellido
+        empleadoCasillaFormApellidos.className = "input-editar"
+        
+        let empleadoCasillaFormNacimiento = document.createElement('input')
+        empleadoCasillaFormNacimiento.type = "text"
+        empleadoCasillaFormNacimiento.value = this.#nacimiento
+        empleadoCasillaFormNacimiento.className = "input-editar"
+        
+        let empleadoCasillaFormSueldo = document.createElement('input')
+        empleadoCasillaFormSueldo.type = "text"
+        empleadoCasillaFormSueldo.value = this.#sueldo
+        empleadoCasillaFormSueldo.className = "input-editar"
+        
+        let empleadoCasillaFormEmail = document.createElement('input')
+        empleadoCasillaFormEmail.type = "email"
+        empleadoCasillaFormEmail.value = this.#email
+        empleadoCasillaFormEmail.className = "input-editar"
+        
+        let empleadoCasillaFormDni = document.createElement('input')
+        empleadoCasillaFormDni.type = "text"
+        empleadoCasillaFormDni.value = this.#dni
+        empleadoCasillaFormDni.className = "input-editar"
+        
+        let empleadoCasillaFormEditar = document.createElement('input')
+        empleadoCasillaFormEditar.type = "image"
+        empleadoCasillaFormEditar.className = "editar"
+        empleadoCasillaFormEditar.src = "ok.webp"
+
+        empleadoCasillaFormEditar.addEventListener("click", (event) => {
+            event.preventDefault()
+            this.updateEmpleado(empleadoCasillaFormNombre.value, empleadoCasillaFormApellidos.value, empleadoCasillaFormSueldo.value, empleadoCasillaFormNacimiento.value, empleadoCasillaFormEmail.value, empleadoCasillaFormDni.value)
+        })
+        row.childNodes[0].appendChild(empleadoCasillaFormNombre)
+        row.childNodes[1].appendChild(empleadoCasillaFormApellidos)
+        row.childNodes[2].appendChild(empleadoCasillaFormNacimiento)
+        row.childNodes[3].appendChild(empleadoCasillaFormSueldo)
+        row.childNodes[4].appendChild(empleadoCasillaFormEmail)
+        row.childNodes[5].appendChild(empleadoCasillaFormDni)
+        row.childNodes[6].appendChild(empleadoCasillaFormEditar)
+        return row
+    }
     updateEmpleado(nombre, apellidos, suedo, fecha, email, dni) {
-        console.log("a");
+        this.setNombre(nombre)
+        this.setApellido(apellidos)
+        this.setSueldo(suedo)
+        this.setNacimiento(fecha)
+        this.setEmail(email)
+        this.setDni(dni)
+        console.log("llamando a renderTabla con -1")
+        renderTabla(-1)
     }
 
     
     
 }
 let empleados = [
-    new Empleado("Carmen", "Española Española", "01/01/1980", "9$", "carmenespecimen@espana.es", "99999999R")
+    new Empleado("Carmen", "Española Española", "01/01/1980", "9$", "carmenespecimen@espana.es", "99999999R"),
+    new Empleado("Carmen", "Española Española", "01/01/1980", "9$", "carmenespecimen@espana.es", "99999999R"),
     ]
 
 //empleados.sort((a,b) => a[0] -  b[0]);
 
-let tabla = document.getElementById('tabla-empleados');
 let ordNombre = 1
 let ordApellidos = 1
 let ordNacimiento = 1
 let ordSueldo = 1
+let tabla = document.getElementById('tabla-empleados');
 function renderTabla(empleadoAEditar){
+    if(empleadoAEditar === "") {
+        empleadoAEditar = -1
+    }
+    tabla = document.getElementById('tabla-empleados');
     tabla.innerHTML = "<tr><th id='columna-nombre'>Nombre</th><th id='columna-apellidos'>Apellidos</th><th id='columna-nacimiento'>Nacimiento</th><th id='columna-sueldo'>Sueldo</th><th id='columna-email'>Email</th><th id='columna-dni'>DNI</th><th>Editar</th></tr>"
 
     document.getElementById('columna-nombre').setAttribute('ord', ordNombre)
@@ -115,9 +171,14 @@ function renderTabla(empleadoAEditar){
     document.getElementById('columna-sueldo').setAttribute('ord', ordSueldo)
     let cuentaEmpleados = 0
     empleados.forEach((empleado) => {
-        let empleadotr = empleado.toTableRow(cuentaEmpleados, empleadoAEditar)
+        let empleadotr;
+        console.log("empleadoAEditar " + empleadoAEditar + " // cuenta: " +cuentaEmpleados)
+        if(empleadoAEditar == cuentaEmpleados){
+            empleadotr = empleado.toFormRow(cuentaEmpleados)
+        } else {
+            empleadotr = empleado.toInfoRow(cuentaEmpleados)
+        }
         cuentaEmpleados++
-        //console.log(empleadotr)
         tabla.append(empleadotr)
     })
     document.getElementById('columna-nombre').addEventListener("click", (event) => {
@@ -132,7 +193,7 @@ function renderTabla(empleadoAEditar){
             })
             ordNombre = 1
         }
-        renderTabla()
+        renderTabla(-1)
     })
     
     document.getElementById('columna-apellidos').addEventListener("click", (event) => {
@@ -147,7 +208,7 @@ function renderTabla(empleadoAEditar){
             })
             ordApellidos = 1
         }
-        renderTabla()
+        renderTabla(-1)
     })
     
     document.getElementById('columna-nacimiento').addEventListener("click", (event) => {
@@ -163,7 +224,7 @@ function renderTabla(empleadoAEditar){
             ordNacimiento = 1
         }
         
-        renderTabla()
+        renderTabla(-1)
     })
     
     document.getElementById('columna-sueldo').addEventListener("click", (event) => {
@@ -178,7 +239,7 @@ function renderTabla(empleadoAEditar){
             })
             ordSueldo = 1
         }
-        renderTabla()
+        renderTabla(-1)
     })
 
     let botonesEditar = document.querySelectorAll('.editar')
@@ -202,7 +263,6 @@ formulario.addEventListener("submit", (e) => {
     let email = document.getElementById('email')
     let dni = document.getElementById('dni')
     let fecha = document.getElementById('fecha')
-    console.log("a")
     if(validarDNI(dni) && validarFecha(fecha) && validarEmail(email)){
         empleados.push(new Empleado(nombre, apellidos, fecha, sueldo, email, dni, fecha))
     }*/
@@ -214,16 +274,13 @@ function nuevoEmpleado(){
     let email = document.getElementById('email').value.trim()
     let dni = document.getElementById('dni').value.trim()
     let fecha = document.getElementById('fecha').value.trim()
-    console.log("a")
-    console.log(validarDNI(dni))
-    console.log(validarEmail(email))
-    console.log(validarFecha(fecha))
+
     if(validarDNI(dni) && validarFecha(fecha) && validarEmail(email)){
         empleados.push(new Empleado(nombre, apellidos, fecha, sueldo, email, dni, fecha))
         console.log(empleados)
-        renderTabla()
+        renderTabla(-1)
     }
 }
 
 
-renderTabla()
+renderTabla(-1)
