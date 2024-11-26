@@ -6,9 +6,11 @@
     <title>Document</title>
     <script defer src="validadores.js"></script>
     <script defer src="cosatabla.js"></script>
+    <script defer src="storage.js"></script>
     <link rel="stylesheet" href="css.css">
 </head>
 <body>
+    <button onclick="guardarEmpleados([{ name: 'John' }, { name: 'Jane' }])">Download Employees</button>
     <form id="formulario-empleado" onsubmit="nuevoEmpleado()">
         <label for="email">Nombre:
             <input type="text" name="nombre" id="nombre">

@@ -16,6 +16,17 @@ class Empleado {
         this.#dni = dni
     }
     
+    toJSON() {
+        return {
+            nombre: this.#nombre,
+            apellido: this.#apellido,
+            nacimiento: this.#nacimiento,
+            sueldo: this.#sueldo,
+            email: this.#email,
+            dni: this.#email,
+        }
+    }
+
     getNombre(){
         return this.#nombre}
     getApellido(){
