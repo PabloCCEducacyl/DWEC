@@ -3,6 +3,7 @@
 function guardarEmpleados(empleados){
     const empleadosJSON = {empleados}
     const empleadosStr = JSON.stringify(empleadosJSON)
+    console.log(empleadosStr)
     const blob = new Blob([empleadosStr], { type: 'application/json' })
     console.log(blob)
     let a = document.createElement("a"),

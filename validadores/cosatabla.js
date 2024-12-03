@@ -180,12 +180,24 @@ class Empleado {
         this.setDni(dni)
         renderTabla(-1)
     }
-
-    
     
 }
 
-
+const formDescription = {
+    tag: "div",
+    attributes: {
+        class: "formulario-contenido",
+        id: "formulario-contenido-div",
+    },
+    content: [
+        {
+            tag: 'div',
+            attributes: {
+                class: "formulario-fila"
+            }
+        }
+    ]
+}
 
 let ordNombre = 1
 let ordApellidos = 1

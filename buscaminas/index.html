@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="buscaminas.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url(bandera.jpg);
+            background-size: contain;
+            margin: 0;
+        }
+
+        #tablero {
+            border-collapse: collapse;
+            border: 2px solid #444;
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+
+        #tablero td {
+            width: 40px;
+            height: 40px;
+            background-color: #bdbdbd;
+            border: 1px solid #888;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #tablero td:hover {
+            background-color: #999;
+        }
+
+        #tablero td:active {
+            background-color: #ce0f85;
+        }
+
+        #tablero td.number {
+            color: #2c3e50;
+        }
+
+        #tablero td.number[data-number="1"] {
+            color: #3498db;
+        }
+
+        #tablero td.number[data-number="2"] {
+            color: #2ecc71;
+        }
+
+        #tablero td.number[data-number="3"] {
+            color: #e74c3c;
+        }
+
+        #tablero td.number[data-number="4"] {
+            color: #9b59b6;
+        }
+
+        #tablero td.number[data-number="5"] {
+            color: #f39c12;
+        }
+
+        #tablero td.number[data-number="6"] {
+            color: #34495e;
+        }
+
+        #tablero td.number[data-number="7"] {
+            color: #1abc9c;
+        }
+
+        #tablero td.number[data-number="8"] {
+            color: #95a5a6;
+        }
+
+        #tablero td.muerte {
+            background-color: #e74c3c; /* Red for mines */
+        }
+
+        #tablero td.empty {
+            background-color: #f0f0f0;
+        }
+
+        .bandera {
+            background-image: url(rotaciones.gif);
+            background-size: cover;
+        }
+        .bomba {
+            background-image: url(bomba.jpg);
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <h1>Baby we built this hooooouse on memorieeeees</h1>
+</body>
+</html>
