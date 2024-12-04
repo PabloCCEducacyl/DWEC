@@ -1,5 +1,7 @@
 'use strict'
 
+let juego = 1
+
 function crearTablero(filas, columnas){
     let tablero = document.createElement('table');
     tablero.id = "tablero";
@@ -11,7 +13,7 @@ function crearTablero(filas, columnas){
         
         let row = document.createElement('tr');
         for(let columna = 0; columna < columnas; columna++){
-            if(Math.random() > 0.7){
+            if(Math.random() < 0.1){
                 tableroDataFila.push(true);
             } else {
                 tableroDataFila.push(false);
@@ -21,6 +23,8 @@ function crearTablero(filas, columnas){
             let casilla = document.createElement('td');
             casilla.dataset.fila = fila;
             casilla.dataset.columna = columna;
+            casilla.dataset.minada = 0;
+            casilla.dataset.bandera = 0;
             casilla.classList.add('casilla')
             row.appendChild(casilla);
         }
@@ -32,38 +36,82 @@ function crearTablero(filas, columnas){
 }
 
 let tablero = crearTablero(10,10);
-function ponerBotones(){
-    function minar(e){
-        let filaMinada = e.target.dataset.fila;
-        let columnaMinada = e.target.dataset.columna;
-        console.log(procesarCasilla(filaMinada, columnaMinada))
-        switch(procesarCasilla(filaMinada, columnaMinada)){
+
+function coordenadasACasilla(fila, columna) {
+    return document.querySelector(`[data-fila='${fila}'][data-columna='${columna}']`);
+}
+
+function minar(fila, columna){
+    // console.log(fila, columna)
+    if(juego == 0){
+        return;
+    }
+    let casilla = coordenadasACasilla(fila, columna);
+    // console.log(casilla)
+    if(casilla.dataset.minada == 1 || casilla.dataset.bandera == 1){
+        return;
+    } else {
+        casilla.dataset.minada = true;
+        // console.log(procesarCasilla(fila, columna))
+        switch(procesarCasilla(fila, columna)){
             case "bomba":
-                alert("bomba");
-                e.target.classList.toggle('bomba')
+                casilla.classList.toggle('bomba')
+                juego = 0;
                 break;
             case "xd":
-                e.target.innerHTML = calcularBombasCerca(filaMinada, columnaMinada)
+                if(calcularBombasCerca(fila, columna) == 0){
+                    casilla.classList.add('vacio')
+                } else {
+                    casilla.innerHTML = calcularBombasCerca(fila, columna)
+                }
+                
+                casilla.classList.add('minada');
+                casilla.dataset.minada = 1;
+                casilla.dataset.numero = calcularBombasCerca(fila, columna);
+
+                if(calcularBombasCerca(fila, columna) == ''){
+                    propagarVacio(fila, columna);
+                }
         }
     }
+}
+function ponerBotones(){
 
     function ponerBandera(e){
         e.preventDefault();
-        e.target.classList.toggle('bandera');
+        if(juego == 0){
+            return;
+        }
+        let casilla = e.target;
+        if(casilla.dataset.minada == 0){
+            casilla.classList.toggle('bandera');
+            if(casilla.dataset.bandera == 1){
+                casilla.dataset.bandera = 0;
+            } else {
+                casilla.dataset.bandera = 1;
+            }
+        }
     }
 
     let casillas = document.querySelectorAll('.casilla');
     casillas.forEach((e) => {
-        e.addEventListener("click", (e) => minar(e));
-        e.addEventListener("contextmenu", (e) => ponerBandera(e));
+        // console.log(e.dataset.minada)
+        if(e.dataset.minada == 0){
+            e.addEventListener("click", (e) => minar(e.target.dataset.fila, e.target.dataset.columna));
+            e.addEventListener("contextmenu", (e) => ponerBandera(e));
+        }
     })
 }
 
 function procesarCasilla(filaMinada, columnaMinada){
-    console.log("tablero[1]["+filaMinada+"]["+columnaMinada+"]")
-    if(tablero[1][filaMinada][columnaMinada]){ //si hay bomba
-        return "bomba"
+    // console.log("tablero[1]["+filaMinada+"]["+columnaMinada+"]")
+    if (tablero[1] && tablero[1][filaMinada] && tablero[1][filaMinada][columnaMinada]) {
+        if (tablero[1][filaMinada][columnaMinada]) { // si hay bomba
+            return "bomba";
+        }
     } else {
+        console.log("no hay casilla")
+        console.log(calcularBombasCerca(filaMinada, columnaMinada))
         return "xd";
     }
 }
@@ -72,9 +120,12 @@ function calcularBombasCerca(fila, columna){
     let direcciones = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]]
 
     direcciones.forEach((e) => {
-        console.log(fila + " // " + e[0] + "  " + e[1] )
-        if(procesarCasilla(Number(fila) + e[0], Number(columna) + e[1]) == "bomba") {
-            numBombas++
+        let newFila = Number(fila) + e[0];
+        let newColumna = Number(columna) + e[1];
+        if (tablero[1] && tablero[1][newFila] && tablero[1][newFila][newColumna]) {
+            if (procesarCasilla(newFila, newColumna) == "bomba") {
+                numBombas++;
+            }
         }
     })
     if(numBombas == 0){
@@ -82,6 +133,24 @@ function calcularBombasCerca(fila, columna){
     }
     return numBombas;
 }
-console.log()
+
+function propagarVacio(fila, columna) {
+    let direcciones = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]]
+    direcciones.forEach((e) => {
+        let newFila = Number(fila) + e[0];
+        let newColumna = Number(columna) + e[1];
+        console.log(newFila + "  " +newColumna)
+        if(newFila >= 0 && newFila < 10 && newColumna >= 0 && newColumna < 10){ // si la casilla está dentro del tablero
+            let casilla = coordenadasACasilla(newFila, newColumna);
+            if(casilla.dataset.minada == 0){
+                minar(Number(fila) + e[0], Number(columna) + e[1])
+                if(calcularBombasCerca(Number(fila) + e[0], Number(columna) + e[1]) == 0){
+                    propagarVacio(Number(fila) + e[0], Number(columna) + e[1])
+                }
+            }
+        }
+    })
+}
+
 document.querySelector('body').appendChild(tablero[0])
 ponerBotones()
