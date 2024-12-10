@@ -13,7 +13,7 @@ function crearTablero(filas, columnas){
         
         let row = document.createElement('tr');
         for(let columna = 0; columna < columnas; columna++){
-            if(Math.random() < 0.1){
+            if(Math.random() < 0.16){
                 tableroDataFila.push(true);
             } else {
                 tableroDataFila.push(false);
@@ -32,6 +32,7 @@ function crearTablero(filas, columnas){
         tablero.appendChild(row);
         
     }
+    ponerBotones()
     return [tablero, tableroData]
 }
 
@@ -55,7 +56,8 @@ function minar(fila, columna){
         // console.log(procesarCasilla(fila, columna))
         switch(procesarCasilla(fila, columna)){
             case "bomba":
-                casilla.classList.toggle('bomba')
+                // casilla.classList.toggle('bomba')
+                revelarTablero()
                 juego = 0;
                 break;
             case "xd":
@@ -104,14 +106,11 @@ function ponerBotones(){
 }
 
 function procesarCasilla(filaMinada, columnaMinada){
-    // console.log("tablero[1]["+filaMinada+"]["+columnaMinada+"]")
     if (tablero[1] && tablero[1][filaMinada] && tablero[1][filaMinada][columnaMinada]) {
         if (tablero[1][filaMinada][columnaMinada]) { // si hay bomba
             return "bomba";
         }
     } else {
-        console.log("no hay casilla")
-        console.log(calcularBombasCerca(filaMinada, columnaMinada))
         return "xd";
     }
 }
@@ -134,12 +133,24 @@ function calcularBombasCerca(fila, columna){
     return numBombas;
 }
 
+function revelarTablero(){
+    for(let i = 0; i < tablero[1].length; i++){
+        for(let j = 0; j < tablero[1][i].length; j++){
+            if(tablero[1][i][j]){
+                setInterval(() => {
+                    coordenadasACasilla(i, j).classList.toggle('bomba')
+                }, 1000)
+            }
+        }
+    }
+}
+
 function propagarVacio(fila, columna) {
     let direcciones = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]]
     direcciones.forEach((e) => {
         let newFila = Number(fila) + e[0];
         let newColumna = Number(columna) + e[1];
-        console.log(newFila + "  " +newColumna)
+        // console.log(newFila + "  " +newColumna)
         if(newFila >= 0 && newFila < 10 && newColumna >= 0 && newColumna < 10){ // si la casilla está dentro del tablero
             let casilla = coordenadasACasilla(newFila, newColumna);
             if(casilla.dataset.minada == 0){
@@ -152,5 +163,17 @@ function propagarVacio(fila, columna) {
     })
 }
 
-document.querySelector('body').appendChild(tablero[0])
-ponerBotones()
+function introducirTablero(tablero){
+    if(document.getElementById('tablero')){
+        document.querySelector('body').removeChild(document.getElementById('tablero'))
+    }
+    document.querySelector('body').appendChild(tablero[0])
+}
+
+function nuevoTablero(event){
+    event.preventDefault()
+    const filas = document.getElementById('filas').value;
+    const columnas = document.getElementById('columnas').value;
+    let tablero = crearTablero(filas,columnas)
+    introducirTablero(tablero)
+}

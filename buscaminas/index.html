@@ -13,8 +13,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url(bandera.jpg);
-            background-size: contain;
+            background-image: url(fondo.png);
+            background-size: cover;
             margin: 0;
         }
 
@@ -101,5 +101,14 @@
 </head>
 <body>
     <h1>Buscaminas</h1>
+    <form onsubmit="nuevoTablero(event)">
+        <label for="filas">Filas:
+            <input type="number" name="filas" id="filas" min="2">
+        </label>
+        <label for="filas">Columnas:
+            <input type="number" name="columnas" id="columnas" min="2">
+        </label>
+        <input type="submit" value="aaaaaaaaa">
+    </form>
 </body>
 </html>
