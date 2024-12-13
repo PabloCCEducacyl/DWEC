@@ -25,9 +25,9 @@ function renderMensajesPasados() {
             const mensajeDiv = document.createElement('div')
             mensajeDiv.classList.add("mensaje");
             mensajeDiv.innerHTML = `
-            <h3>Usuario: ${mensaje.usuario}</h3>
+            <h3>${mensaje.usuario}</h3>
             <p>${mensaje.texto}</p>
-            <p>${mensaje.timestamp}</p>`
+            <pre>${mensaje.timestamp}</pre>`
             chat.appendChild(mensajeDiv)
         });
     }
@@ -53,9 +53,9 @@ function nuevoMensaje(e){
     const mensajeDiv = document.createElement('div')
     mensajeDiv.classList.add("mensaje");
     mensajeDiv.innerHTML = `
-        <h3>Usuario: ${mensajeJSON.usuario}</h3>
+        <h3>${mensajeJSON.usuario}</h3>
         <p>${mensajeJSON.texto}</p>
-        <p>${mensajeJSON.timestamp}</p>`
+        <pre>${mensajeJSON.timestamp}</pre>`
     chat.appendChild(mensajeDiv)
     window.scrollTo(0, document.body.scrollHeight);
 }

@@ -10,6 +10,7 @@
         header{
             display: flex;
             flex-direction: row;
+            gap: 12px;
             height: 120px;
             align-items: center;
             margin-bottom: 8px;
@@ -37,13 +38,29 @@
             position: sticky;
             margin-top: auto;
             bottom: 0px;
+            background-color: white;
             /* padding-bottom: 12px; */
         }
         .mensaje{
             padding: 8px;
             max-width: 480px;
             border-radius: 32px;
-            border: 2px solid red;  
+            border: 2px solid #E1000F;  
+        }
+        .mensaje h3 {
+            display: inline;
+            margin: 16px 0 0 4px;
+            padding: 4px;
+            border-radius: 8px;
+            background-color: #000091;
+            color: white;
+        }
+        .mensaje p {
+            margin-top: 8px;
+        }
+        .mensaje pre {
+            margin-left: 12px;
+            margin-bottom: 2px;
         }
     </style>
 </head>
