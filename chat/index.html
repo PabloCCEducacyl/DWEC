@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat con localStorage</title>
+    <link rel="shortcut icon" href="chat.png" type="image/x-icon">
+    <script src="chat.js" defer></script>
+    <style>
+        header{
+            display: flex;
+            flex-direction: row;
+            height: 120px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        header img {
+            height: 120px;
+        }
+        header button{
+            height: 20px;
+        }
+        body{
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        #chat {
+            /* min-height: 40vh; */
+            margin-left: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        #cosa-usuario {
+            position: sticky;
+            margin-top: auto;
+            bottom: 0px;
+            /* padding-bottom: 12px; */
+        }
+        .mensaje{
+            padding: 8px;
+            max-width: 480px;
+            border-radius: 32px;
+            border: 2px solid red;  
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="chat.png" alt="gato frances">
+        <div>
+            <h1>Chat</h1>
+            <button onclick="limpiarChat()">Limpiar Chat</button>
+        </div>
+    </header>
+    <div id="chat"></div>
+    <div id="cosa-usuario">
+        <hr>
+        <fieldset>
+            <legend>Nuevo Mensaje:</legend>
+            <form onsubmit="nuevoMensaje(event)">
+                <label for="usuario">Usuario:</label>
+                <input type="text" name="usuario" id="usuario">
+                <label for="mensaje">Mensaje:</label>
+                <input type="text" name="mensaje" id="mensaje">
+                <input type="submit" value="Enviar" id="enviar">
+            </form>
+        </fieldset>
+    </div>
+</body>
+</html>
