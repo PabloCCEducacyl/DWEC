@@ -41,6 +41,9 @@ function nuevoMensaje(e){
     const usuarioTexto = usuarioInput.value
     const mensajeDate = new Date().toLocaleString()
 
+    mensajeInput.value = ''
+    // usuarioInput.value = ''
+
     const mensajeJSON = { texto: mensajeTexto, usuario: usuarioTexto, timestamp: mensajeDate}
     
     const mensajes = getMensajes();
