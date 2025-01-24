@@ -1,19 +1,54 @@
 import { useState, useEffect } from "react";
 
+function Posts() {
+    const [posts, setPosts] = useState([]);
+    const [users, setUsers] = useState([])
 
-function Posts(){
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+
+    const cogerUser = (id) => {
+        return users.find(user => user.id === id)
+    }
 
     useEffect(() => {
-        async function fetchPosts(params) {
-            const res = await fetch('https://jsonplaceholder.typicode.com/posts')
-            return await res.json()
-            setLoading(false)
-        }
+        async function fetchPosts() {
+            try {
+                const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+                const resUsers = await fetch('https://jsonplaceholder.typicode.com/users')
+                const dataPosts = await res.json();
+                const dataUsers = await resUsers.json();
 
-        setPosts(fetchPosts())
-    }, [])
+                setPosts(dataPosts);
+                setUsers(dataUsers)
+            } catch (error) {
+                console.error("Error posts:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        
+        fetchPosts();
+    }, []);
+
+    console.log(users)
+
+    if (loading) {
+        return <div><img src="/loading.gif"/></div>;
+    }
+
+    return (
+        <div>
+            {posts.map(post => (
+                <div key={post.id}>
+                    <h2>{post.title}</h2>
+                    <h4>Autor: {cogerUser(post.userId)?.name}</h4>
+                    <p>{post.body}</p>
+                    <hr />
+                </div>
+            ))}
+        </div>
+    );
+    
 }
 
-export default Posts
+export default Posts;

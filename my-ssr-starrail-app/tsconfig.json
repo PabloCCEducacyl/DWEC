@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "NodeNext", // Use "NodeNext" for Node.js ES modules
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    /* Additional settings for Node.js */
+    "esModuleInterop": true, // Enable ES module interop
+    "resolveJsonModule": true // Allow importing JSON files
+  },
+  "include": ["src", "server.js"], // Include server.js in the TypeScript compilation
+  "exclude": ["node_modules"]
+}
