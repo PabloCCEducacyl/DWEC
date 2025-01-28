@@ -1,3 +1,4 @@
+import './Posts.css'
 import { useState, useEffect } from "react";
 
 function Posts() {
@@ -37,13 +38,12 @@ function Posts() {
     }
 
     return (
-        <div>
+        <div className="posts">
             {posts.map(post => (
-                <div key={post.id}>
+                <div className="post" key={post.id}>
                     <h2>{post.title}</h2>
-                    <h4>Autor: {cogerUser(post.userId)?.name}</h4>
+                    <h3>Autor: {cogerUser(post.userId)?.name}</h3>
                     <p>{post.body}</p>
-                    <hr />
                 </div>
             ))}
         </div>

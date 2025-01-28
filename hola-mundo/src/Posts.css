@@ -1,0 +1,16 @@
+.posts{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.post {
+    width: 800px;
+    border: 4px solid black;
+    border-radius: 8px;
+    padding: 8px;
+}
+.post h2 {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
