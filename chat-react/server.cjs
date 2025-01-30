@@ -5,7 +5,7 @@ const app = express()
 const expressWs = require('express-ws')(app);
 
 app.use(bodyParser.json())
-
+expressWs.par
 app.post('/webhook', (req, res) => {
     const payload = req.body;
     console.log('Webhook received: ', payload)

@@ -1,5 +1,7 @@
 import './Posts.css'
 import { useState, useEffect } from "react";
+import Comentarios from './Comentarios';
+
 
 function Posts() {
     const [posts, setPosts] = useState([]);
@@ -44,6 +46,7 @@ function Posts() {
                     <h2>{post.title}</h2>
                     <h3>Autor: {cogerUser(post.userId)?.name}</h3>
                     <p>{post.body}</p>
+                    <Comentarios id={post.id}/>
                 </div>
             ))}
         </div>
