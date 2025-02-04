@@ -4,6 +4,8 @@ function Comentarios({ id }) {
     const [comentarios, setComentarios] = useState([]);
     const [cargado, setCargado] = useState(false);
     const [escondido, setEscondido] = useState(false);
+    
+
 
     async function fetchComentarios() {
         try {
