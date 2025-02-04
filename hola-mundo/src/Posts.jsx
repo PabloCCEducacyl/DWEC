@@ -40,16 +40,19 @@ function Posts() {
     }
 
     return (
-        <div className="posts">
-            {posts.map(post => (
-                <div className="post" key={post.id}>
-                    <h2>{post.title}</h2>
-                    <h3>Autor: {cogerUser(post.userId)?.name}</h3>
-                    <p>{post.body}</p>
-                    <Comentarios id={post.id}/>
-                </div>
-            ))}
-        </div>
+        <>
+            <h1>Postes</h1>
+            <div className="posts">
+                {posts.map(post => (
+                    <div className="post" key={post.id}>
+                        <h2>{post.title}</h2>
+                        <h3>Autor: <a href={`/user/${post.userId}`}>{cogerUser(post.userId)?.name}</a></h3>
+                        <p>{post.body}</p>
+                        <Comentarios id={post.id}/>
+                    </div>
+                ))}
+            </div>
+        </>
     );
     
 }

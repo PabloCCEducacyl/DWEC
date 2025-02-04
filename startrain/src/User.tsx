@@ -1,12 +1,21 @@
 import { useState } from "react";
-import StarRail from "starrail.js";
+const { StarRail } = require("starrail.js");
+
 
 function User() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState("");
+    const starRail = new StarRail();
+    starRail.cached
 
+
+    starRail.on("user", (user : User) => {
 
     function handleUser(): void {
-        const userUUID = document.getElementById("userUUIDInput").value;
+        const userUUIDInput = document.getElementById("userUUIDInput");
+        if (!userUUIDInput) {
+            return;
+        }
+        const userUUID = (userUUIDInput as HTMLInputElement).value;
         if(!userUUID) {
             return;
         }

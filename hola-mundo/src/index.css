@@ -15,14 +15,18 @@
 
 a {
   font-weight: 500;
-  color: #33ff00;
+  color: #ae00ff;
   text-decoration: inherit;
 }
 a:hover {
-  color: #eeff00;
+  color: rgb(145, 0, 113);
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  color: #1a1a1a;
   margin: 0;
   display: flex;
   background-color: rgb(202, 255, 205);
