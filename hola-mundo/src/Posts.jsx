@@ -47,6 +47,7 @@ function Posts() {
                     <div className="post" key={post.id}>
                         <h2>{post.title}</h2>
                         <h3>Autor: <a href={`/user/${post.userId}`}>{cogerUser(post.userId)?.name}</a></h3>
+                        
                         <p>{post.body}</p>
                         <Comentarios id={post.id}/>
                     </div>
