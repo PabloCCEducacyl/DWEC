@@ -37,14 +37,11 @@ function Comentarios({ id }) {
             <button onClick={() => setEscondido(true)}>Esconder Comentarios</button>
             <div className="comentarios">
                 {comentarios.map(comentario => (
-                    <>
-                        <hr/>
-                        <div className="comentario" key={comentario.id}>
-                            <h4>{comentario.name}</h4> {/* Changed from `title` to `name` */}
-                            <h5>Autor: {comentario.email}</h5>
-                            <p>{comentario.body}</p>
-                        </div>
-                    </>
+                    <div className="comentario" key={comentario.id}>
+                        <h4>{comentario.name}</h4>
+                        <h5>Autor: {comentario.email}</h5>
+                        <p>{comentario.body}</p>
+                    </div>
                 ))}
             </div>
         </>

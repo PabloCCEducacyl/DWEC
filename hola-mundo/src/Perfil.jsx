@@ -14,7 +14,7 @@ function Perfil() {
             try {
                 const res = await fetch('https://jsonplaceholder.typicode.com/users/' + id);
                 if (!res.ok) {
-                    throw new Error('Failed to fetch user');
+                    setUserNoEncontrado(true);
                 }
                 const dataUser = await res.json();
                 
@@ -25,7 +25,6 @@ function Perfil() {
                 setUser(dataUser);
             } catch (error) {
                 console.error("Error fetching user:", error);
-                setError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -40,7 +39,7 @@ function Perfil() {
     if(userNoEncontrado){
         return (
             <div>
-                <h1>Usuario {id} no encontrado</h1>
+                <h4>Usuario {id} no encontrado</h4>
                 <a href="/">Volver</a>
             </div>
         )
