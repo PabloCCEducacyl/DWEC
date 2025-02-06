@@ -47,7 +47,7 @@ function Posts() {
                 {posts.map(post => (
                     <div className="post" key={post.id}>
                         <h2>{post.title}</h2>
-                        <Link to={`/user/${post.id}`}>{cogerUser(post.userId)?.name}</Link>;
+                        <Link to={`/user/${post.userId}`}>{cogerUser(post.userId)?.name}</Link>
                         <p>{post.body}</p>
                         <Comentarios id={post.id}/>
                     </div>
