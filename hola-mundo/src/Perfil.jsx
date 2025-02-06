@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 function Perfil() {
     const [loading, setLoading] = useState(true);
@@ -40,7 +40,7 @@ function Perfil() {
         return (
             <div>
                 <h4>Usuario {id} no encontrado</h4>
-                <a href="/">Volver</a>
+                <Link to={`/`}>Volver</Link>
             </div>
         )
     }
@@ -54,7 +54,7 @@ function Perfil() {
                 <h3>{user?.website}</h3>
         
             </div>
-            <a href="/">Volver</a>
+            <Link to={`/`}>Volver</Link>
         </>
 
     );
