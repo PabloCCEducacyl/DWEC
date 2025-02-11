@@ -1,5 +1,6 @@
 import './Posts.css'
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import Comentarios from './Comentarios';
 
 
@@ -46,8 +47,7 @@ function Posts() {
                 {posts.map(post => (
                     <div className="post" key={post.id}>
                         <h2>{post.title}</h2>
-                        <h3>Autor: <a href={`/user/${post.userId}`}>{cogerUser(post.userId)?.name}</a></h3>
-                        
+                        <Link to={`/user/${post.userId}`}>{cogerUser(post.userId)?.name}</Link>
                         <p>{post.body}</p>
                         <Comentarios id={post.id}/>
                     </div>
