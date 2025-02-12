@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
-import './App.css'
+import './Objetos.css'
 
 interface Objeto {
-  id: number;
+  _id: number;
   name: string;
   value: string;
 }
 
 async function login(currentToken: string) {
   if (currentToken) return currentToken;
+  if(localStorage.getItem('token')) return localStorage.getItem('token')
 
   const url = "http://localhost:3000/login";
   try {
@@ -35,7 +36,7 @@ async function login(currentToken: string) {
   }
 }
 
-function App() {
+function Objetos() {
   const [token, setToken] = useState<string>('');
   const [objetos, setObjetos] = useState<Objeto[]>([]);
 
@@ -44,6 +45,7 @@ function App() {
       try {
         const authToken = await login(token);
         setToken(authToken);
+        localStorage.setItem('token', authToken);
         await fetchObjetos(authToken);
       } catch (error) {
         console.error("Error inicial:", error);
@@ -78,7 +80,7 @@ function App() {
       <h1>Objetos</h1>
       <div className="posts">
         {objetos.map(objeto => (
-          <div className="post" key={objeto.id}>
+          <div className="post" key={objeto._id}>
             <h2>{objeto.name}</h2>
             <p>{objeto.value}</p>
           </div>
@@ -88,4 +90,4 @@ function App() {
   )
 }
 
-export default App
+export default Objetos
